@@ -1,6 +1,6 @@
-package UserInfoServices.EmployeeData.repositories
+package userinfoservices.employeedata.repositories
 
-import UserInfoServices.EmployeeData.entities.Employee
+import userinfoservices.employeedata.entities.Employee
 import org.springframework.data.repository.CrudRepository
 import org.springframework.stereotype.Repository
 
