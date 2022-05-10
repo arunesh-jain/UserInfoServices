@@ -1,10 +1,11 @@
-package UserInfoServices.EmployeeData.controller
+package userInfoServices.employeeData.controller
 
-import UserInfoServices.EmployeeData.entities.EmployeeDetailsEntities
-import UserInfoServices.EmployeeData.repositories.EmployeeDetailsRepository
+import userInfoServices.employeeData.entities.EmployeeDetailsEntities
+import userInfoServices.employeeData.repositories.EmployeeDetailsRepository
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 
+@RestController
 class EmployeeController (val repo : EmployeeDetailsRepository) {
     @PostMapping("/save")
     fun addEmployeeDetails(@RequestBody employee: EmployeeDetailsEntities): EmployeeDetailsEntities {
