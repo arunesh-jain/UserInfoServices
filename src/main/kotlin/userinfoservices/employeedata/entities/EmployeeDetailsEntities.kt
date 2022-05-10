@@ -1,4 +1,4 @@
-package UserInfoServices.EmployeeData.entities
+package userinfoservices.employeedata.entities
 
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue
