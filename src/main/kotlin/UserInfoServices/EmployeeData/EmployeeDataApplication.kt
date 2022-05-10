@@ -5,7 +5,6 @@ import org.springframework.boot.runApplication
 
 @SpringBootApplication
 class EmployeeDataApplication
-
 fun main(args: Array<String>) {
 	runApplication<EmployeeDataApplication>(*args)
 }
