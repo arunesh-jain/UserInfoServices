@@ -1,4 +1,4 @@
-package userinfoservices.employeedata
+package UserInfoServices.EmployeeData
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
