@@ -1,4 +1,4 @@
-package UserInfoServices.EmployeeData.entities
+package userInfoServices.employeeData.entities
 
 import javax.persistence.Column
 import javax.persistence.Entity
