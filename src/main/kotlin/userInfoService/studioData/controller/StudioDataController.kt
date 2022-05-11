@@ -15,29 +15,38 @@ import java.util.*
 @RestController
 class StudioDataController ( val repo : StudioDetailsRepository) {
 
-    @PostMapping( "/save")
-    fun addStudioDetails (@RequestBody studio : StudioEntities) : StudioEntities {
-        return  repo.save(studio)
+    @PostMapping("/save")
+    fun addStudioDetails(@RequestBody studio: StudioEntities): StudioEntities {
+        return repo.save(studio)
     }
+
     @GetMapping("/getOne/{id}")
-    fun getOneStudioDetails(@PathVariable id: String): Optional<StudioEntities>
-    {
+    fun getEmployee(@PathVariable id: Long): Optional<StudioEntities> {
         return repo.findById(id)
     }
 
-    @GetMapping ("/getAll")
-    fun getAllStudioDetails() : List<StudioEntities> {
+    @GetMapping("/getAll")
+    fun getAllStudioDetails(): List<StudioEntities> {
         return repo.findAll().toList()
     }
 
-    @DeleteMapping ("/delete/{id}")
-    fun deleteStudioDetails (@PathVariable(value = "Id") Id: String) : HttpStatus {
-        repo.deleteById(Id)
+    @DeleteMapping("delete/{id}")
+    fun deleteEmployee(@PathVariable id: Long): HttpStatus {
+        repo.deleteById(id)
         return HttpStatus.MOVED_PERMANENTLY
     }
-    @PutMapping
-    fun updateStudioDetails(@RequestBody studio: StudioEntities)
-    {
-        repo.save(studio)
+
+    @PutMapping("/update/{Id}")
+    fun updateStudioDetails(@RequestBody studio: StudioEntities, @PathVariable Id: Long): HttpStatus {
+
+        val task = repo.findById(Id).orElse(null)
+        val updatedCompany = repo.save(
+            task.apply {
+                name = studio.name
+                type = studio.type
+                studioHeadEmail = studio.studioHeadEmail
+            }
+        )
+        return HttpStatus.CREATED
     }
 }

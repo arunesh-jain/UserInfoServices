@@ -7,7 +7,7 @@ import javax.persistence.*
 class StudioEntities(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id : Int,
+    var  id : Long =0,
 
     @Column(name = "name", nullable = false)
     var name : String,
