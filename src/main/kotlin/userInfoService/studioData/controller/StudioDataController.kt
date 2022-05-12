@@ -9,44 +9,37 @@ import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
 import userInfoService.studioData.entities.StudioEntities
-import userInfoService.studioData.repositories.StudioDetailsRepository
+import userInfoService.studioData.service.StudioService
 import java.util.*
 
 @RestController
-class StudioDataController ( val repo : StudioDetailsRepository) {
+class StudioDataController ( val service : StudioService) {
 
     @PostMapping("/save")
     fun addStudioDetails(@RequestBody studio: StudioEntities): StudioEntities {
-        return repo.save(studio)
+        return service.addStudio(studio)
     }
 
+
     @GetMapping("/getOne/{id}")
-    fun getEmployee(@PathVariable id: Long): Optional<StudioEntities> {
-        return repo.findById(id)
+    fun getStudio(@PathVariable id: Long): Optional<StudioEntities> {
+        return service.getOneStudio(id)
     }
 
     @GetMapping("/getAll")
     fun getAllStudioDetails(): List<StudioEntities> {
-        return repo.findAll().toList()
+        return service.getAllStudio()
     }
 
     @DeleteMapping("delete/{id}")
     fun deleteEmployee(@PathVariable id: Long): HttpStatus {
-        repo.deleteById(id)
+        service.deleteStudioEmployee(id)
         return HttpStatus.MOVED_PERMANENTLY
     }
 
     @PutMapping("/update/{Id}")
-    fun updateStudioDetails(@RequestBody studio: StudioEntities, @PathVariable Id: Long): HttpStatus {
-
-        val task = repo.findById(Id).orElse(null)
-        val updatedCompany = repo.save(
-            task.apply {
-                name = studio.name
-                type = studio.type
-                studioHeadEmail = studio.studioHeadEmail
-            }
-        )
-        return HttpStatus.CREATED
+    fun updateStudioDetails(@RequestBody studio: StudioEntities, @PathVariable("Id") id: Long): HttpStatus {
+        service.updateStudio(studio,id)
+       return HttpStatus.CREATED
     }
 }
