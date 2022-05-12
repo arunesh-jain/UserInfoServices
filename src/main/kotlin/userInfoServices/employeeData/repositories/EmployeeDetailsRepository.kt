@@ -5,4 +5,4 @@ import org.springframework.data.repository.CrudRepository
 import org.springframework.stereotype.Repository
 
 @Repository
-interface EmployeeDetailsRepository : CrudRepository<EmployeeDetailsEntities,String>
+interface EmployeeDetailsRepository : CrudRepository<EmployeeDetailsEntities,Int>
