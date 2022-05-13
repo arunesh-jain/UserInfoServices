@@ -4,44 +4,37 @@ import userInfoServices.employeeData.entities.EmployeeDetailsEntities
 import userInfoServices.employeeData.repositories.EmployeeDetailsRepository
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
+import userInfoServices.employeeData.services.EmployeeService
 import java.util.*
 
 @RestController
-class EmployeeController (val repo : EmployeeDetailsRepository) {
+class StudioDataController ( val service : EmployeeService) {
+
     @PostMapping("/save")
-    fun addEmployeeDetails(@RequestBody employee: EmployeeDetailsEntities): EmployeeDetailsEntities {
-        return repo.save(employee)
+    fun addStudioDetails(@RequestBody employee: EmployeeDetailsEntities): EmployeeDetailsEntities {
+        return service.addEmployee(employee)
     }
+
+
     @GetMapping("/getOne/{id}")
-    fun getOneEmployee(@PathVariable id: Int): Optional<EmployeeDetailsEntities> {
-        return repo.findById(id)
+    fun getStudio(@PathVariable id: Int): Optional<EmployeeDetailsEntities> {
+        return service.getOneEmployee(id)
     }
 
     @GetMapping("/getAll")
-    fun getAllEmployeesDetails(): List<EmployeeDetailsEntities> {
-        return repo.findAll().toList()
+    fun getAllStudioDetails(): List<EmployeeDetailsEntities> {
+        return service.getAllEmployee()
     }
 
-    @DeleteMapping("/delete/{Id}")
-    fun deleteEmployeeDetails(@PathVariable(value = "Id") Id: Int): HttpStatus {
-        repo.deleteById(Id)
+    @DeleteMapping("delete/{id}")
+    fun deleteEmployee(@PathVariable id: Int): HttpStatus {
+        service.deleteEmployee(id)
         return HttpStatus.MOVED_PERMANENTLY
     }
-    @PutMapping("/update/{Id}")
-    fun updateEmployeeDetails(@RequestBody employee: EmployeeDetailsEntities, @PathVariable Id: Int): HttpStatus {
 
-        val task = repo.findById(Id).orElse(null)
-        val updatedEmployeeDetails = repo.save(
-            task.apply {
-                fullName = employee.fullName
-                wordpressId = employee.wordpressId
-                emailId = employee.emailId
-                activeStatus = employee.activeStatus
-                studioId = employee.studioId
-                role = employee.role
-                githubId = employee.githubId
-            }
-        )
+    @PutMapping("/update/{Id}")
+    fun updateStudioDetails(@RequestBody studio: EmployeeDetailsEntities, @PathVariable("Id") id: Int): HttpStatus {
+        service.updateEmployee(studio,id)
         return HttpStatus.CREATED
     }
 }
